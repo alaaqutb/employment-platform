@@ -1,0 +1,25 @@
+{
+  "lastRun": "1666439512480-create-employees-jobs-table.js",
+  "migrations": [
+    {
+      "title": "1666439449281-create-companies-table.js",
+      "timestamp": 1666556848945
+    },
+    {
+      "title": "1666439471583-create-employers-table.js",
+      "timestamp": 1666556849871
+    },
+    {
+      "title": "1666439478939-create-jobs-table.js",
+      "timestamp": 1666556850093
+    },
+    {
+      "title": "1666439488323-create-employees-table.js",
+      "timestamp": 1666556850313
+    },
+    {
+      "title": "1666439512480-create-employees-jobs-table.js",
+      "timestamp": 1666556850626
+    }
+  ]
+}
