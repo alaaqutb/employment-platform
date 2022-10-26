@@ -1,4 +1,4 @@
-const DbProvider = require("../../db/db");
+const DbProvider = require("../db/db");
 const dbProvider = new DbProvider();
 
 class EmployerModel {
@@ -9,7 +9,7 @@ class EmployerModel {
   }
 
   static async findEmployerByEmail(email) {
-    const sql = `SELECT * FROM employers WHERE email = ?`;
+    const sql = `SELECT id, email FROM employers WHERE email = ?`;
     const rows = await dbProvider.execute(sql, [email]);
     return rows[0];
   }

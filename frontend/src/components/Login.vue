@@ -23,9 +23,22 @@
         v-model="loginForm.password"
       />
     </div>
-    <button type="submit" class="btn btn-primary" @click.prevent="login">
-      Submit
-    </button>
+    <div class="mb-3 d-flex justify-content-center">
+      <button
+        type="submit"
+        class="btn btn-primary w-25 m-2"
+        @click.prevent="adminLogin"
+      >
+        Login As Admin
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary w-25 m-2"
+        @click.prevent="userLogin"
+      >
+        Login As User
+      </button>
+    </div>
   </form>
 </template>
 <script>
@@ -41,14 +54,34 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["setToken"]),
-    async login() {
-      const result = await instance.post("employees/login", this.loginForm);
-      const { token } = result?.data;
-      console.log(token);
-      this.setToken(token);
+    ...mapMutations(["setUser", "setToken"]),
+    async userLogin() {
+      try {
+        const result = await instance.post("employees/login", this.loginForm);
+        const { token } = result?.data;
+        // this.setUser(user);
+        // this.setToken(token);
+        alert(result.data.message);
+        if (token) {
+          this.$router.push("/");
+        }
+      } catch (err) {
+        console.log(err.stack);
+      }
     },
-  },
+    async adminLogin() {
+      try {
+        const result = await instance.post("employers/login", this.loginForm);
+        const { token } = result?.data;
+        alert(result.data.message);
+        if (token) {
+          this.$router.push("/");
+        }
+      } catch (err) {
+        console.log(err.stack);
+      }
+    }
+  }
 };
 </script>
 

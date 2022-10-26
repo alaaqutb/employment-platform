@@ -25,5 +25,10 @@ router.get(
   EmployerController.authenticateEmployer,
   JobController.findEmployeeJob
 );
+router.post(
+  "/jobs/:jobId/employees/:employeeId",
+  EmployerController.authenticateEmployer,
+  JobController.setEmployeeJobStatus
+);
 
 module.exports = router;

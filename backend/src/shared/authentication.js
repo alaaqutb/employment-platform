@@ -20,13 +20,13 @@ async function authenticate(req, res, next) {
       if (decoded.isAdmin) {
         const employer = await EmployerModel.findEmployerByEmail(decoded.email);
         if (!employer) {
-          res.status(401).json({ response: "Unauthorized !" });
+          res.json({ message: "Unauthenticated" });
           return;
         }
       } else {
         const employee = await EmployeeModel.getEmployeeByEmail(decoded.email);
         if (!employee) {
-          res.status(401).json({ response: "Unauthorized !!" });
+          res.json({ message: "Unauthenticated" });
           return;
         }
       }
@@ -34,7 +34,7 @@ async function authenticate(req, res, next) {
     res.locals.auth = decoded;
     next();
   } catch (err) {
-    res.status(401).json({ response: "Unauthorized !!!" });
+    res.json({ message: "Unauthorized !!!" });
   }
 }
 

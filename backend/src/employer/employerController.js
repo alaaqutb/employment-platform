@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
 
 dotenv.config();
+
 const { BCRYPT_PASSWORD, SALT_ROUNDS } = process.env;
 const { EXPIRES_IN, ISSUER, SUBJECT, ALGORITHM, PRIVATE_KEY } = process.env;
 
@@ -22,54 +23,60 @@ class EmployerController {
       if (decoded) {
         const employer = await EmployerModel.findEmployerByEmail(decoded.email);
         if (!employer || !decoded.isAdmin) {
-          res.status(401).json({ response: "Unauthorized" });
+          res.json({ message: "Unauthenticated" });
         }
       } else {
-        res.status(401).json({ response: "Unauthorized" });
+        res.json({ message: "Unauthenticated" });
       }
       res.locals.auth = decoded;
       next();
     } catch (err) {
-      res.status(401).json({ response: "Unauthorized" });
+      console.log(err.stack);
     }
   }
+
   static async login(req, res) {
-    const email = req.body.email;
-    const password = req.body.password;
-    if (email && password) {
-      const employer = await EmployerModel.findEmployerByEmail(email);
-      if (employer) {
-        const result = bcrypt.compareSync(
-          password + BCRYPT_PASSWORD,
-          employer.password
-        );
-        if (result) {
-          const payload = {
-            id: employer.id,
-            email: employer.email,
-            isAdmin: true,
-          };
-          const options = {
-            expiresIn: parseInt(EXPIRES_IN, 10),
-            issuer: ISSUER,
-            subject: SUBJECT,
-            algorithm: ALGORITHM,
-          };
-          const token = jwt.sign(payload, PRIVATE_KEY, options);
-          res.json({
-            message: "Signed In Successfully",
-            token,
-          });
+    try {
+      const email = req.body.email;
+      const password = req.body.password;
+      if (email && password) {
+        const employer = await EmployerModel.findEmployerByEmail(email);
+        if (employer) {
+          const result = bcrypt.compareSync(
+            password + BCRYPT_PASSWORD,
+            employer.password
+          );
+          if (result) {
+            const payload = {
+              id: employer.id,
+              email: employer.email,
+              isAdmin: true,
+            };
+            const options = {
+              expiresIn: parseInt(EXPIRES_IN, 10),
+              issuer: ISSUER,
+              subject: SUBJECT,
+              algorithm: ALGORITHM,
+            };
+            const token = jwt.sign(payload, PRIVATE_KEY, options);
+            res.json({
+              message: "Signed In Successfully",
+              token,
+            });
+          } else {
+            res.json({ message: "invalid email or password" });
+          }
         } else {
-          res.status(401).json({ response: "invalid email or password" });
+          res.json({ message: "invalid email or password" });
         }
       } else {
-        res.status(401).json({ response: "invalid email or password" });
+        res.json({ message: "email and password are required" });
       }
-    } else {
-      res.status(401).json({ response: "email and password are required" });
+    } catch (err) {
+      console.log(err.stack);
     }
   }
+
   static async register(req, res) {
     try {
       const errors = validationResult(req);

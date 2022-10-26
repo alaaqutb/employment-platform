@@ -1,5 +1,5 @@
 "use strict";
-const DbProvider = require("../db/db");
+const DbProvider = require("../src/db/db");
 const dbProvider = new DbProvider();
 
 module.exports.up = async function (next) {
