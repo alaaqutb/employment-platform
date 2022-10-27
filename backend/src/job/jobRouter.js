@@ -12,7 +12,11 @@ router.post(
   EmployerController.authenticateEmployer,
   JobController.postJob
 );
-router.get("/jobs", authenticate, JobController.findJobs);
+router.get(
+  "/jobs",
+  authenticate,
+  JobController.findJobs
+);
 router.get("/jobs/title", authenticate, JobController.findJobByTitle);
 router.get("/jobs/:id", idValidation, JobController.findOneJob);
 router.post(

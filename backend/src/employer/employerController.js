@@ -1,3 +1,8 @@
+/*
+ * "email": "asmaa@yahoo.com",
+ * "password": "AAAbbb123###"
+ */
+
 const EmployerModel = require("./employerModel");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
@@ -40,7 +45,7 @@ class EmployerController {
       const email = req.body.email;
       const password = req.body.password;
       if (email && password) {
-        const employer = await EmployerModel.findEmployerByEmail(email);
+        const employer = await EmployerModel.findEmployerByEmailForLogin(email);
         if (employer) {
           const result = bcrypt.compareSync(
             password + BCRYPT_PASSWORD,
@@ -89,15 +94,20 @@ class EmployerController {
         return;
       }
       const data = req.body;
-      const hashed = bcrypt.hashSync(
-        data.password + BCRYPT_PASSWORD,
-        parseInt(SALT_ROUNDS)
-      );
-      data.password = hashed;
-      await EmployerModel.createEmployer(data);
-      res.json({
-        message: "Registered Successfully",
-      });
+      const employeesEmail = await EmployerModel.findEmployerByEmail(data.email);
+      if (employeesEmail) {
+        res.json({message: "Email already exists"});
+      } else {
+        const hashed = bcrypt.hashSync(
+          data.password + BCRYPT_PASSWORD,
+          parseInt(SALT_ROUNDS)
+        );
+        data.password = hashed;
+        await EmployerModel.createEmployer(data);
+        res.json({
+          message: "Registered Successfully",
+        });
+      }
     } catch (err) {
       console.log(err.stack);
     }

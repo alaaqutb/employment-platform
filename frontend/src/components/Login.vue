@@ -44,6 +44,7 @@
 <script>
 import { instance } from "../axios/axios";
 import { mapMutations } from "vuex";
+
 export default {
   data() {
     return {
@@ -59,8 +60,9 @@ export default {
       try {
         const result = await instance.post("employees/login", this.loginForm);
         const { token } = result?.data;
+        console.log(this.setToken);
         // this.setUser(user);
-        // this.setToken(token);
+        this.setToken(token);
         alert(result.data.message);
         if (token) {
           this.$router.push("/");
@@ -80,7 +82,7 @@ export default {
       } catch (err) {
         console.log(err.stack);
       }
-    }
+    },
   }
 };
 </script>

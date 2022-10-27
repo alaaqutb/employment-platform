@@ -21,8 +21,8 @@ class JobController {
       }
       const data = req.body;
       const decoded = res.locals.auth;
-      const employee_id = decoded ? decoded.id : null;
-      await JobModel.createJob({ ...data, employee_id });
+      const employer_id = decoded ? decoded.id : null;
+      await JobModel.createJob({ ...data, employer_id });
 
       res.json({
         message: "Job is created successfully",
@@ -58,7 +58,7 @@ class JobController {
     const employeeId = decoded ? decoded.id : null;
     const status = "pending";
     const employeeJob = await JobModel.getEmployeeAppliedJob(employeeId, jobId);
-    if (employeeJob && employeeJob.length == 0) {
+    if (!employeeJob || employeeJob.length == 0) {
       await JobModel.applyJob([employeeId, jobId, status]);
       res.json({
         message: "Applied Successfully",

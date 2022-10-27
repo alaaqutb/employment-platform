@@ -2,8 +2,8 @@ const { body, param } = require("express-validator");
 
 const employeeValidation = [
   body("name")
-    .isAlpha()
-    .withMessage("The name must be alphabets only!")
+    // .isAlpha()
+    // .withMessage("The name must be alphabets only!")
     .isLength({ max: 50 })
     .withMessage("The letters must be < 50"),
   body("city")
@@ -22,8 +22,6 @@ const employeeValidation = [
     .withMessage("The letters must be < 50"),
   body("experience_level").notEmpty().isIn(["junior", "mid", "senior"]),
   body("bio_text")
-    .isAlpha()
-    .withMessage("The bio must be alphabets only!")
     .isLength({ max: 200 })
     .withMessage("The letters must be < 200"),
   body("password").isStrongPassword(),

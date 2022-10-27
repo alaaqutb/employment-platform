@@ -13,6 +13,12 @@ class EmployerModel {
     const rows = await dbProvider.execute(sql, [email]);
     return rows[0];
   }
+
+  static async findEmployerByEmailForLogin(email) {
+    const sql = `SELECT id, email, password FROM employers WHERE email = ?`;
+    const rows = await dbProvider.execute(sql, [email]);
+    return rows[0];
+  }
 }
 
 module.exports = EmployerModel;

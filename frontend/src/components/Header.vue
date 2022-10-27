@@ -12,6 +12,7 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form> -->
       <div class="d-flex">
+        <RouterLink to="/jobs" class="text-light nav-link active mx-3">Jobs</RouterLink>
         <RouterLink to="/register" class="text-light nav-link active mx-3">Register</RouterLink>
         <RouterLink to="/login" class="text-light nav-link active mx-3">Login</RouterLink>
       </div>
@@ -28,7 +29,6 @@ export default {
         };
     },
     methods: {
-    //
     },
     components: {
       //
