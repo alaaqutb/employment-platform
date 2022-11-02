@@ -55,14 +55,12 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["setUser", "setToken"]),
+    ...mapMutations(["setToken"]),
     async userLogin() {
       try {
         const result = await instance.post("employees/login", this.loginForm);
         const { token } = result?.data;
-        console.log(this.setToken);
-        // this.setUser(user);
-        this.setToken(token);
+        this.$localStorage.setToken(token);
         alert(result.data.message);
         if (token) {
           this.$router.push("/");
@@ -87,7 +85,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .my-form-label {
   font-weight: bold;
 }

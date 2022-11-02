@@ -1,15 +1,15 @@
-import Vue from "vue";
+//import Vue from "vue";
 import Vuex from "vuex";
-Vue.use(Vuex);
-export default new Vuex.Store({
+//Vue.use(Vuex);
+export const store = new Vuex.Store({
   state: {
-    user: null,
+    // user: null,
     token: null,
   },
   mutations: {
-    setUser(state, user) {
-      state.user = user;
-    },
+    // setUser(state, user) {
+    //   state.user = user;
+    // },
     setToken(state, token) {
       state.token = token;
     },
@@ -17,3 +17,4 @@ export default new Vuex.Store({
   actions: {},
   getters: {},
 });
+

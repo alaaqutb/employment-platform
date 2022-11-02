@@ -1,10 +1,8 @@
 <template>
-  <HeaderComponent></HeaderComponent>
-  <!-- <HomeComponent></HomeComponent>
-    <RegisterComponent></RegisterComponent>
-    <LoginComponent></LoginComponent> -->
-    <!-- <CreateJob></CreateJob> -->
-  <RouterView />
+  <div>
+    <HeaderComponent/>
+    <RouterView/>
+  </div>
 </template>
 
 <script>
@@ -14,6 +12,8 @@ import RegisterComponent from "./components/Register.vue";
 import HomeComponent from "./components/Home.vue";
 import { RouterView } from "vue-router";
 import CreateJob from './components/job/CreateJob.vue';
+import EmployeesProfilesVue from "./components/EmployeesProfiles.vue";
+import EmployeeProfile from "./components/Profile.vue";
 
 export default {
 //   data() {
@@ -29,7 +29,9 @@ export default {
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    CreateJob
+    CreateJob,
+    EmployeesProfilesVue,
+    EmployeeProfile
   },
 };
 </script>

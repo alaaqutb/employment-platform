@@ -36,7 +36,7 @@ class EmployeeModel {
   }
 
   static async getEmployee(id) {
-    const sql = `SELECT id, name, city, email, skills, experience_level, bio_text, national_id FROM employees WHERE id = ? `;
+    const sql = `SELECT id, name, city, email, skills, experience_level, bio_text, national_id,views_number FROM employees WHERE id = ? `;
     const rows = await dbProvider.execute(sql, [id]);
     return rows[0];
   }

@@ -73,6 +73,7 @@ class JobController {
       const jobId = req.params.jobId;
       const employeeId = req.params.employeeId;
       const newStatus = req.query.status;
+      const employerId = res.locals.auth.id;
       // 1. validate jobId, employeeId and newStatus
       if (!jobId || !employeeId || !['rejected', 'accepted'].includes(newStatus)) {
         res.json({message: "Invalid Process"});
@@ -80,7 +81,7 @@ class JobController {
         // 2. get employeeJob
         // if it exists and the status is pending, update status
         const employeeJob = await JobModel.getEmployeeAppliedJob(employeeId, jobId);
-        if (employeeJob && employeeJob.status === 'pending') {
+        if (employeeJob && employeeJob.status === 'pending' && employeeJob.employer_id === employerId) {
           // update status
           await JobModel.updateEmployeeJobStatus(employeeId, jobId, newStatus);
           res.json({message: `Process Done: ${newStatus}`});

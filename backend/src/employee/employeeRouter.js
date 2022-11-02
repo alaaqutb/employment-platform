@@ -6,30 +6,33 @@ const { idValidation } = require("./employeeValidation");
 const authenticate = require("../shared/authentication");
 
 const router = express.Router();
-router.get("/employees", authenticate, EmployeeController.findEmployees);
+router.get("/employees",
+  // authenticate,
+  EmployeeController.findEmployees
+);
 router.get(
   "/employees/name",
-  authenticate,
+  // authenticate,
   EmployeeController.findEmployeeByName
 );
 router.get(
   "/employees/skills",
-  EmployerController.authenticateEmployer,
+  // EmployerController.authenticateEmployer,
   EmployeeController.findAppBySkills
 );
 router.get(
   "/employees/city",
-  EmployerController.authenticateEmployer,
+  // EmployerController.authenticateEmployer,
   EmployeeController.findAppByCity
 );
 router.get(
   "/employees/experienceLevel",
-  EmployerController.authenticateEmployer,
+  // EmployerController.authenticateEmployer,
   EmployeeController.findAppByLevel
 );
 router.get(
   "/employees/bioText",
-  EmployerController.authenticateEmployer,
+  // EmployerController.authenticateEmployer,
   EmployeeController.findAppByBio
 );
 router.post("/employees/login", EmployeeController.login);
@@ -41,7 +44,7 @@ router.post(
 router.get(
   "/employees/:id",
   idValidation,
-  authenticate,
+  // authenticate,
   EmployeeController.findOneEmployee
 );
 module.exports = router;

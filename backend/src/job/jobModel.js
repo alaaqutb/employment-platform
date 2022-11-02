@@ -15,12 +15,12 @@ class JobModel {
   }
 
   static async getJobs() {
-    const sql = `SELECT * FROM jobs`;
+    const sql = `SELECT * FROM jobs INNER JOIN companies ON companies.id=jobs.id`;
     return await dbProvider.execute(sql, []);
   }
 
   static async getOneJob(id) {
-    const sql = `SELECT * FROM jobs WHERE id = ?`;
+    const sql = `SELECT * FROM jobs INNER JOIN companies ON companies.id=jobs.id AND jobs.id = ?`;
     const rows = await dbProvider.execute(sql, [id]);
     return rows[0];
   }

@@ -125,7 +125,7 @@ class EmployeeController {
       const employeeId = req.params.id;
       let data = await EmployeeModel.getEmployee(employeeId);
       const numberOfViews = data.views_number + 1;
-      await EmployeeModel.updateNumberOfViews(employeeId, numberOfViews);
+     await EmployeeModel.updateNumberOfViews(employeeId, numberOfViews);
       res.json({ data });
     } catch (err) {
       console.log(err.stack);
