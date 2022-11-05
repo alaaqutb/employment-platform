@@ -9,16 +9,16 @@ const router = express.Router();
 
 router.post(
   "/jobs",
-  // EmployerController.authenticateEmployer,
+  EmployerController.authenticateEmployer,
   JobController.postJob
 );
 router.get(
   "/jobs",
-  // authenticate,
+  authenticate,
   JobController.findJobs
 );
 router.get("/jobs/title",
-  // authenticate,
+  authenticate,
   JobController.findJobByTitle
 );
 router.get("/jobs/:id",
@@ -27,17 +27,17 @@ router.get("/jobs/:id",
 );
 router.post(
   "/jobs/:id/apply",
-  // EmployeeController.authenticateEmployee,
+  EmployeeController.authenticateEmployee,
   JobController.applyEmployeeJob
 );
 router.get(
   "/jobs/:id/employees",
-  // EmployerController.authenticateEmployer,
+  EmployerController.authenticateEmployer,
   JobController.findEmployeeJob
 );
 router.post(
   "/jobs/:jobId/employees/:employeeId",
-  // EmployerController.authenticateEmployer,
+  EmployerController.authenticateEmployer,
   JobController.setEmployeeJobStatus
 );
 

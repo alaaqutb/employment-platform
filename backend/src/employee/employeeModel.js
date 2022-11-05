@@ -41,9 +41,9 @@ class EmployeeModel {
     return rows[0];
   }
 
-  static async getEmployees() {
-    const sql = `SELECT id, name, city, email, skills, experience_level, bio_text, national_id FROM employees`;
-    return await dbProvider.execute(sql, []);
+  static async getEmployees(offset) {
+    const sql = `SELECT id, name, city, email, skills, experience_level, bio_text, national_id FROM employees LIMIT ?,10`;
+    return await dbProvider.execute(sql, [offset]);
   }
 
   static async updateNumberOfViews(id, numberOfViews) {

@@ -4,15 +4,9 @@
       <RouterLink to="/" class="navbar-brand text-light"
         >Employment Platform</RouterLink
       >
-      <form class="d-flex" role="search">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search"
-          aria-label="Search"
-        />
-        <button class="btn btn-outline-light" type="submit">Search</button>
-      </form>
+      <div>
+        <SearchComponent url="/jobs/title?title="></SearchComponent>
+      </div>
       <div class="d-flex">
         <RouterLink to="/employees" class="text-light nav-link active mx-3"
           >Employees</RouterLink
@@ -26,22 +20,35 @@
         <RouterLink to="/login" class="text-light nav-link active mx-3"
           >Login</RouterLink
         >
+        <text class="text-light cursor-pointer" @click="logout()">Logout</text>
       </div>
     </div>
   </nav>
 </template>
 <script>
 import { RouterLink } from "vue-router";
-
+import SearchComponent from "./SearchComponent.vue";
 export default {
   data() {
     return {
-      //
+      // isLoggedIn: true,
     };
   },
-  methods: {},
+  methods: {
+    async logout() {
+      const token = localStorage.getItem("token");
+      if (token) {
+        localStorage.removeItem("token");
+        // this.isLoggedIn = false;
+      }
+    },
+    // isLoggedIn() {
+    //   const token = localStorage.getItem("token");
+    //   return !!token;
+    // },
+  },
   components: {
-    //
+    SearchComponent,
   },
 };
 </script>

@@ -1,5 +1,14 @@
 <template>
-  <div class="container p-5">
+  <div class="container p-5 wrapper" v-if="employees">
+    <nav aria-label="Page navigation example mx-auto">
+      <ul class="pagination">
+        <!-- <li class="page-item"><span class="page-link cursor-pointer">Previous</span></li> -->
+        <li class="page-item" @click="getEmployees(1)"><span class="page-link cursor-pointer">1</span></li>
+        <li class="page-item" @click="getEmployees(2)"><span class="page-link cursor-pointer">2</span></li>
+        <li class="page-item" @click="getEmployees(3)"><span class="page-link cursor-pointer">3</span></li>
+        <!-- <li class="page-item"><span class="page-link cursor-pointer">Next</span></li> -->
+      </ul>
+    </nav>
     <div class="row d-flex">
       <div
         class="list-group p-2 w-75 m-auto bg-dark text-white"
@@ -33,21 +42,40 @@
       </div>
     </div>
   </div>
+  <div v-else>Not Found!</div>
 </template>
 <script>
 import { instance } from "../axios/axios";
+import { store } from "../axios/store";
 export default {
   data() {
     return {
       employees: [],
+      pageNumber: 1,
     };
   },
-  methods: {},
-  created: async function () {
-    const result = await instance.get("/employees", {});
+  methods: {
+    async getEmployees(number) {
+      let token = localStorage.getItem("token");
+    const result = await instance.get(`/employees?page=${number}`, {
+      headers: { authorization: token },
+    });
     this.employees = result.data.data;
+    }
+  },
+  created: async function () {
+   this.getEmployees(this.pageNumber);
   },
 };
 </script>
 
-<style></style>
+<style>
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+</style>

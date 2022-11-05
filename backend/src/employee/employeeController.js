@@ -133,7 +133,9 @@ class EmployeeController {
   }
 
   static async findEmployees(req, res) {
-    const data = await EmployeeModel.getEmployees();
+    const pageNumber =  req.query.page;
+    const offset = (pageNumber-1) * 10;
+    const data = await EmployeeModel.getEmployees(offset);
     res.json({ data });
   }
 

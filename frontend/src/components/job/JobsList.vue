@@ -46,7 +46,7 @@ export default {
     //
   },
   created: async function () {
-    const token = store.state.token;
+    const token = localStorage.getItem("token");
     const result = await instance.get("jobs", {
       headers: { authorization: token },
     });

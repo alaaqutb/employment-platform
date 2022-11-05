@@ -60,7 +60,9 @@ export default {
       try {
         const result = await instance.post("employees/login", this.loginForm);
         const { token } = result?.data;
-        this.$localStorage.setToken(token);
+        this.setToken(token);
+        instance.defaults.headers.common['authorization'] = 'Bearer ' + token;
+        localStorage.setItem( 'token', token );
         alert(result.data.message);
         if (token) {
           this.$router.push("/");
