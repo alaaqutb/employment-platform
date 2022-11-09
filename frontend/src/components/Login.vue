@@ -1,5 +1,5 @@
 <template>
-  <form class="w-50 m-auto mt-5">
+  <form class="w-75 m-auto p-5">
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label my-form-label"
         >Email address</label
@@ -44,7 +44,7 @@
 <script>
 import { instance } from "../axios/axios";
 import { mapMutations } from "vuex";
-
+// import { EventBus } from "../event-bus.js";
 export default {
   data() {
     return {
@@ -53,6 +53,9 @@ export default {
         password: "",
       },
     };
+  },
+  created() {
+    //
   },
   methods: {
     ...mapMutations(["setToken"]),
@@ -65,6 +68,7 @@ export default {
         localStorage.setItem( 'token', token );
         alert(result.data.message);
         if (token) {
+          // EventBus.$emit("user-is-logged-in", this.Count);
           this.$router.push("/");
         }
       } catch (err) {

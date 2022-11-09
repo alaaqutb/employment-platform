@@ -1,37 +1,54 @@
 <template>
   <nav class="navbar bg-dark">
     <div class="container-fluid">
-      <RouterLink to="/" class="navbar-brand text-light"
-        >Employment Platform</RouterLink
-      >
-      <div>
-        <SearchComponent url="/jobs/title?title="></SearchComponent>
-      </div>
-      <div class="d-flex">
-        <RouterLink to="/employees" class="text-light nav-link active mx-3"
+      <div class="d-flex align-items-baseline">
+        <RouterLink to="/" class="navbar-brand text-light"
+          >Employment Platform</RouterLink
+        >
+        <RouterLink
+          to="/employees"
+          v-if="isLoggedIn()"
+          class="text-light nav-link active mx-3"
           >Employees</RouterLink
         >
-        <RouterLink to="/jobs" class="text-light nav-link active mx-3"
+        <RouterLink
+          to="/jobs"
+          v-if="isLoggedIn()"
+          class="text-light nav-link active mx-3"
           >Jobs</RouterLink
         >
-        <RouterLink to="/register" class="text-light nav-link active mx-3"
-          >Register</RouterLink
-        >
-        <RouterLink to="/login" class="text-light nav-link active mx-3"
-          >Login</RouterLink
-        >
-        <text class="text-light cursor-pointer" @click="logout()">Logout</text>
+      </div>
+      <div class="d-flex" v-if="isLoggedIn()">
+        <div class="dropdown">
+          <button
+            class="text-white bg-dark border-0 dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            {{ email }}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Profile</a>
+            <a class="dropdown-item" href="#" @click.prevent="logout()"
+              >Logout</a
+            >
+          </div>
+        </div>
       </div>
     </div>
   </nav>
 </template>
 <script>
 import { RouterLink } from "vue-router";
-import SearchComponent from "./SearchComponent.vue";
+// import { EventBus } from "../event-bus";
 export default {
   data() {
     return {
-      // isLoggedIn: true,
+      email: "email@email.com",
     };
   },
   methods: {
@@ -39,16 +56,19 @@ export default {
       const token = localStorage.getItem("token");
       if (token) {
         localStorage.removeItem("token");
-        // this.isLoggedIn = false;
       }
+      this.$router.push("/login");
     },
-    // isLoggedIn() {
-    //   const token = localStorage.getItem("token");
-    //   return !!token;
-    // },
+    isLoggedIn() {
+      const token = localStorage.getItem("token");
+      return !!token; // if the token exists, return true, otherwise, return false.
+    },
   },
   components: {
-    SearchComponent,
+    //
+  },
+  mounted() {
+    console.log("user-is-logged-in")
   },
 };
 </script>
