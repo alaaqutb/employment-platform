@@ -14,9 +14,15 @@ class JobModel {
     await dbProvider.execute(sql, params);
   }
 
-  static async getJobs() {
-    const sql = `SELECT * FROM jobs INNER JOIN companies ON companies.id=jobs.id`;
-    return await dbProvider.execute(sql, []);
+  static async getJobs(offset, limit) {
+    const sql = `SELECT * FROM jobs INNER JOIN companies ON companies.id=jobs.id LIMIT ?, ?`;
+    return await dbProvider.execute(sql, [offset, limit]);
+  }
+
+  static async getJobsCount() {
+    const sql = `SELECT COUNT(*) as count FROM jobs`;
+    const rows = await dbProvider.execute(sql, []);
+    return rows[0];
   }
 
   static async getOneJob(id) {

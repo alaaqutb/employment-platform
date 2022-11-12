@@ -1,27 +1,29 @@
 <template>
-  <div class="container p-5 wrapper" v-if="jobs">
+  <div class="container p-5 wrapper" v-if="employees">
     <table class="table table-striped">
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Title</th>
-          <th scope="col">Description</th>
-          <th scope="col">Requirements</th>
-          <th scope="col">Company Name</th>
+          <th scope="col">Name</th>
+          <th scope="col">City</th>
+          <th scope="col">Email</th>
+          <th scope="col">Skills</th>
+          <th scope="col">Level</th>
         </tr>
       </thead>
       <tbody>
         <tr
-          v-for="(job, index) in jobs"
-          :key="job.id"
+          v-for="(employee, index) in employees"
+          :key="employee.id"
           class="cursor-pointer"
-          @click="goToJobProfile(job.id)"
+          @click="goToEmployeeProfile(employee.id)"
         >
           <th scope="row">{{ (pageNumber - 1) * 10 + index + 1 }}</th>
-          <td>{{ job.title }}</td>
-          <td>{{ job.description }}</td>
-          <td>{{ job.requirements }}</td>
-          <td>{{ job.name }}</td>
+          <td>{{ employee.name }}</td>
+          <td>{{ employee.city }}</td>
+          <td>{{ employee.email }}</td>
+          <td>{{ employee.skills }}</td>
+          <td>{{ employee.experience_level }}</td>
         </tr>
       </tbody>
     </table>
@@ -31,14 +33,14 @@
           class="page-item"
           v-for="index in pages"
           :key="index"
-          @click="getJobs(index)"
+          @click="getEmployees(index)"
         >
           <span class="page-link cursor-pointer">{{ index }}</span>
         </li>
       </ul>
     </nav>
   </div>
-  <div v-else style="text-align: center">
+  <div v-else style="text-align: center;">
     <div class="spinner-border" role="status">
       <span class="sr-only">Loading...</span>
     </div>
@@ -50,37 +52,37 @@ import { instance } from "../../axios/axios";
 export default {
   data() {
     return {
-      jobs: null,
+      employees: null,
       pageNumber: 1,
       totalCount: 0,
       pages: 0,
     };
   },
   methods: {
-    async getJobs(number) {
+    async getEmployees(number) {
       try {
         this.pageNumber = number;
         let token = localStorage.getItem("token");
-        const result = await instance.get(`/jobs?page=${number}`, {
+        const result = await instance.get(`/employees?page=${number}`, {
           headers: { authorization: token },
         });
-        this.jobs = result.data.data;
+        this.employees = result.data.data;
         this.totalCount = result.data.totalCount;
         this.pages =
           this.totalCount / 10 > parseInt(this.totalCount / 10)
             ? parseInt(this.totalCount / 10) + 1
             : parseInt(this.totalCount / 10);
       } catch (err) {
-        this.jobs = null;
+        this.employees = null;
         this.totalCount = null;
       }
     },
-    goToJobProfile(jobId) {
-      this.$router.push(`/jobs/${jobId}`);
+    goToEmployeeProfile(employeeId) {
+      this.$router.push(`/employees/${employeeId}`);
     },
   },
   created: async function () {
-    this.getJobs(this.pageNumber);
+    this.getEmployees(this.pageNumber);
   },
 };
 </script>

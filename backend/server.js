@@ -6,6 +6,7 @@ const cors = require("cors");
 const employeeRouter = require("./src/employee/employeeRouter");
 const employerRouter = require("./src/employer/employerRouter");
 const jobRouter = require("./src/job/jobRouter");
+const getProfile = require("./src/shared/Profile")
 
 dotenv.config();
 const app = express();
@@ -34,14 +35,16 @@ app.use(cors());
 app.use(jobRouter);
 app.use(employerRouter);
 app.use(employeeRouter);
+
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Hello World" });
 });
-//Not found
+app.get("/profile", getProfile);
+// Not found
 app.use((request, response) => {
   response.status(404).json({ message: "Not Found!" });
 });
-//Error
+// Error
 app.use((request, response, next, error) => {
   const status = error.status || 500;
   response.status(status).json({ message: error + "" });

@@ -3,7 +3,7 @@ const dbProvider = new DbProvider();
 
 class EmployeeModel {
   static async getEmployeeByEmail(email) {
-    const sql = `SELECT id, name, city, email, skills, experience_level, bio_text, national_id FROM employees WHERE email = ?`;
+    const sql = `SELECT id, name, city, email, skills, experience_level, bio_text FROM employees WHERE email = ?`;
     const rows = await dbProvider.execute(sql, [email]);
     return rows[0];
   }
@@ -41,9 +41,15 @@ class EmployeeModel {
     return rows[0];
   }
 
-  static async getEmployees(offset) {
-    const sql = `SELECT id, name, city, email, skills, experience_level, bio_text, national_id FROM employees LIMIT ?,10`;
-    return await dbProvider.execute(sql, [offset]);
+  static async getEmployees(offset, limit) {
+    const sql = `SELECT id, name, city, email, skills, experience_level, bio_text, national_id FROM employees LIMIT ?, ?`;
+    return await dbProvider.execute(sql, [offset, limit]);
+  }
+
+  static async getEmployeesCount() {
+    const sql = `SELECT COUNT(*) as count FROM employees`;
+    const rows = await dbProvider.execute(sql, []);
+    return rows[0];
   }
 
   static async updateNumberOfViews(id, numberOfViews) {

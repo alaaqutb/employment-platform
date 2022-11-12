@@ -135,8 +135,10 @@ class EmployeeController {
   static async findEmployees(req, res) {
     const pageNumber =  req.query.page;
     const offset = (pageNumber-1) * 10;
-    const data = await EmployeeModel.getEmployees(offset);
-    res.json({ data });
+    const limit = 10;
+    const data = await EmployeeModel.getEmployees(offset, limit);
+    const totalCount = await EmployeeModel.getEmployeesCount(offset);
+    res.json({ data, totalCount: totalCount.count });
   }
 
   static async findEmployeeByName(req, res) {

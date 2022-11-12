@@ -1,6 +1,8 @@
 <template>
   <div>
+    <notifications position="bottom right"/>
     <HeaderComponent />
+    
     <div class="components-wrapper">
       <RouterView />
     </div>
@@ -14,8 +16,8 @@ import LoginComponent from "./components/Login.vue";
 import RegisterComponent from "./components/Register.vue";
 import HomeComponent from "./components/Home.vue";
 import CreateJob from "./components/job/CreateJob.vue";
-import EmployeesProfilesVue from "./components/EmployeesProfiles.vue";
-import EmployeeProfile from "./components/Profile.vue";
+import EmployeesListVue from "./components/employees/EmployeesList.vue";
+import EmployeeProfile from "./components/employees/Profile.vue";
 import SearchComponent from "./components/SearchComponent.vue";
 import NotFoundComponent from "./components/NotFoundComponent.vue";
 
@@ -34,10 +36,10 @@ export default {
     RegisterComponent,
     HomeComponent,
     CreateJob,
-    EmployeesProfilesVue,
+    EmployeesListVue,
     EmployeeProfile,
     SearchComponent,
-    NotFoundComponent
+    NotFoundComponent,
   },
 };
 </script>
@@ -47,9 +49,9 @@ body {
   background-color: lightgray;
 }
 .components-wrapper {
-  /* height: 100px; */
-  margin: 8px;
+  margin: 13px;
   background-color: white;
-  border-radius: 5px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 10px;
 }
 </style>

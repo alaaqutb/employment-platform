@@ -43,8 +43,12 @@ class JobController {
   }
 
   static async findJobs(req, res) {
-    const data = await JobModel.getJobs();
-    res.json({ data });
+    const pageNumber = req.query.page;
+    const offset = (pageNumber-1) *10;
+    const limit = 10;
+    const data = await JobModel.getJobs(offset, limit);
+    const totalCount = await JobModel.getJobsCount();
+    res.json({ data, totalCount: totalCount.count });
   }
 
   static async findOneJob(req, res) {

@@ -4,8 +4,8 @@ import LoginComponent from "../components/Login.vue";
 import RegisterComponent from "../components/Register.vue";
 import JobsComponent from "../components/job/JobsList.vue";
 import JobComponent from "../components/job/ViewJob.vue";
-import EmployeesComponent from "../components/EmployeesProfiles.vue";
-import EmployeeComponent from "../components/Profile.vue";
+import EmployeesComponent from "../components/employees/EmployeesList.vue";
+import EmployeeComponent from "../components/employees/Profile.vue";
 import SearchComponent from "../components/SearchComponent.vue";
 import NotFoundComponent from "../components/NotFoundComponent.vue";
 
@@ -18,14 +18,14 @@ const router = createRouter({
       component: HomeComponent,
     },
     {
-      path: "/register",
-      name: "register",
-      component: RegisterComponent,
-    },
-    {
       path: "/login",
       name: "login",
       component: LoginComponent,
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: RegisterComponent,
     },
     {
       path: "/jobs",
@@ -53,19 +53,26 @@ const router = createRouter({
       component: SearchComponent,
     },
     {
+      path: "/profile",
+      name: "profile",
+      component: EmployeeComponent,
+    },
+    {
       path: "/:pathMatch(.*)*",
       name: "notfound",
       component: NotFoundComponent
-      
     }
   ],
 });
-//Guard
+// Guard
 router.beforeEach((to, from) => {
   if (!isAuthenticated() && to.name !== "login" && to.name !== "register") {
+    // any page except login and register, redirect it to login page
     return { name: "login" };
   }
-  if (isAuthenticated() && to.name === "login" || to.name === "register") {
+  if (isAuthenticated() && (to.name === "login" || to.name === "register")) {
+    // false && (false || true)
+    // when i already logged in, don't let me to go to login or register page
     return { name: "notfound" };
   }
 });
