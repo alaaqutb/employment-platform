@@ -99,15 +99,14 @@ export default {
           headers: { authorization: token },
         }
       );
-      if (result) {
-        notify({
-          title: result.data.message,
-          //type: "success"
-        });
-        // $('#exampleModal').hide();
-        // this.$forceUpdate();
-        // this.$router.go(this.$router.currentRoute);
-      }
+       if (result) {
+         notify({
+           title: result.data.message,
+         });
+         // $('#exampleModal').hide();
+         // this.$forceUpdate();
+         // this.$router.go(this.$router.currentRoute);
+       }
     },
   },
   created: async function () {

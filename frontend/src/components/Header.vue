@@ -18,6 +18,8 @@
           >Jobs</RouterLink
         >
       </div>
+      <!-- <SearchComponent url="/jobs/title?title=" v-if="isLoggedIn" /> -->
+
       <div class="d-flex" v-if="isLoggedIn">
         <div class="dropdown">
           <button
@@ -50,10 +52,12 @@
 <script>
 import { RouterLink } from "vue-router";
 import { notify } from "@kyvg/vue3-notification";
+import SearchComponent from "./SearchComponent.vue";
 
 export default {
   data() {
     return {
+      //url: "",
       email: "",
       isLoggedIn: false,
     };
@@ -78,14 +82,14 @@ export default {
     // },
   },
   components: {
-    //
+    SearchComponent,
   },
   created() {
     this.emitter.on("user-is-logged-in", (e) => {
       this.email = e.email;
       this.isLoggedIn = true;
     });
-    
+
     this.email = localStorage.getItem("email");
     const token = localStorage.getItem("token");
     if (token) this.isLoggedIn = true;

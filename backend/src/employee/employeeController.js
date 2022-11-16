@@ -3,7 +3,10 @@ const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
-
+/*
+ * "email": "loloyoyo7070@gmail.com",
+ * "password": "AAAAgggg@@@@123"
+ */
 dotenv.config();
 
 const { BCRYPT_PASSWORD, SALT_ROUNDS } = process.env;
