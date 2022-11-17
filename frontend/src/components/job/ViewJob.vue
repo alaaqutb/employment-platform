@@ -18,7 +18,7 @@
         </table>
         <div class="d-flex mt-3 justify-content-center">
           <button
-            v-if="!isAdmin"
+          v-if="isAdmin === 'false'"
             type="button"
             class="btn btn-primary"
             data-bs-toggle="modal"
@@ -33,7 +33,7 @@
           >
             <div>
               <button
-                v-if="isAdmin"
+              v-if="isAdmin === 'true'"
                 type="button"
                 class="btn btn-primary mx-3"
                 @click="navigate"
