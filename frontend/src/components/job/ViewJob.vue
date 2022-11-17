@@ -18,6 +18,7 @@
         </table>
         <div class="d-flex mt-3 justify-content-center">
           <button
+            v-if="!isAdmin"
             type="button"
             class="btn btn-primary"
             data-bs-toggle="modal"
@@ -25,6 +26,23 @@
           >
             Apply
           </button>
+          <RouterLink
+            :to="`/jobs/${job.id}/employees`"
+            custom
+            v-slot="{ navigate }"
+          >
+            <div>
+              <button
+                v-if="isAdmin"
+                type="button"
+                class="btn btn-primary mx-3"
+                @click="navigate"
+                role="link"
+              >
+                Manage
+              </button>
+            </div>
+          </RouterLink>
         </div>
       </div>
     </div>
@@ -71,7 +89,7 @@
       </div>
     </div>
   </div>
-  <div v-else style="text-align: center;">
+  <div v-else style="text-align: center">
     <div class="spinner-border" role="status">
       <span class="sr-only">Loading...</span>
     </div>
@@ -85,6 +103,7 @@ import { notify } from "@kyvg/vue3-notification";
 export default {
   data: () => {
     return {
+      isAdmin: true,
       id: "",
       job: null,
     };
@@ -99,20 +118,22 @@ export default {
           headers: { authorization: token },
         }
       );
-       if (result) {
-         notify({
-           title: result.data.message,
-         });
-         // $('#exampleModal').hide();
-         // this.$forceUpdate();
-         // this.$router.go(this.$router.currentRoute);
-       }
+      if (result) {
+        notify({
+          title: result.data.message,
+        });
+        // $('#exampleModal').hide();
+        // this.$forceUpdate();
+        // this.$router.go(this.$router.currentRoute);
+      }
     },
   },
   created: async function () {
+    this.isAdmin = localStorage.getItem("isAdmin");
     this.id = this.$route.params.id;
     const result = await instance.get(`/jobs/${this.id}`, {});
     this.job = result.data ? result.data.data : {};
+    console.log(this.isAdmin);
   },
 };
 </script>

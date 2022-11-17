@@ -19,7 +19,9 @@ import CreateJob from "./components/job/CreateJob.vue";
 import EmployeesListVue from "./components/employees/EmployeesList.vue";
 import EmployeeProfile from "./components/employees/Profile.vue";
 import SearchComponent from "./components/SearchComponent.vue";
+import jobEmployeeComponent from "./components/job/jobEmployee.vue"
 import NotFoundComponent from "./components/NotFoundComponent.vue";
+
 
 export default {
   data() {
@@ -39,6 +41,7 @@ export default {
     EmployeesListVue,
     EmployeeProfile,
     SearchComponent,
+    jobEmployeeComponent,
     NotFoundComponent,
   },
 };

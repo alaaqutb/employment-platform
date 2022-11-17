@@ -72,13 +72,14 @@ export default {
       try {
         const result = await instance.post("employees/login", this.loginForm);
         const { token } = result?.data;
-        localStorage.setItem("token", token);
-        localStorage.setItem("email", this.loginForm.email);
-        notify({
-          title: result.data.message,
-          // type: "success"
-        });
         if (token) {
+          localStorage.setItem("token", token);
+          localStorage.setItem("email", this.loginForm.email);
+          localStorage.setItem("isAdmin", false);
+          notify({
+            title: result.data.message,
+            // type: "success"
+          });
           this.emitter.emit("user-is-logged-in", {
             email: this.loginForm.email,
           });
@@ -92,12 +93,13 @@ export default {
       try {
         const result = await instance.post("employers/login", this.loginForm);
         const { token } = result?.data;
-        localStorage.setItem("token", token);
-        localStorage.setItem("email", this.loginForm.email);
-        notify({
-          title: result.data.message,
-        });
         if (token) {
+          localStorage.setItem("token", token);
+          localStorage.setItem("email", this.loginForm.email);
+          localStorage.setItem("isAdmin", true);
+          notify({
+            title: result.data.message,
+          });
           this.emitter.emit("user-is-logged-in", {
             email: this.loginForm.email,
           });

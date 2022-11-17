@@ -66,6 +66,7 @@ export default {
     async logout() {
       const token = localStorage.getItem("token");
       const email = localStorage.getItem("email");
+      const isAdmin = localStorage.getItem("isAdmin")
       if (email) localStorage.removeItem("email");
       if (token) {
         localStorage.removeItem("token");
@@ -73,6 +74,7 @@ export default {
           title: "You are logged out successfully",
         });
       }
+      if (isAdmin) localStorage.removeItem("isAdmin");
       this.$router.push("/login");
       this.isLoggedIn = false;
     },
