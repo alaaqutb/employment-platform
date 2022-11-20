@@ -40,7 +40,7 @@
             ></button>
           </div>
           <div class="modal-body">
-            <ul class="list-group m-3" v-for="item in result" :key="item.id">
+            <ul class="list-group m-3" v-for="item in result" :key="item.jobID">
               <li class="list-group-item">Title: {{ item.title }}</li>
               <li class="list-group-item">
                 Description: {{ item.description }}
@@ -87,9 +87,9 @@
       <tbody>
         <tr
           v-for="(job, index) in jobs"
-          :key="job.id"
+          :key="job.jobID"
           class="cursor-pointer"
-          @click="goToJobProfile(job.id)"
+          @click="goToJobProfile(job.jobID)"
         >
           <th scope="row">{{ (pageNumber - 1) * 10 + index + 1 }}</th>
           <td>{{ job.title }}</td>
@@ -141,6 +141,7 @@ export default {
           headers: { authorization: token },
         });
         this.jobs = result.data.data;
+        console.log(this.jobs)
         this.totalCount = result.data.totalCount;
         this.pages =
           this.totalCount / 10 > parseInt(this.totalCount / 10)

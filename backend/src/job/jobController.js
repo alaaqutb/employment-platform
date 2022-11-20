@@ -47,7 +47,7 @@ class JobController {
     const offset = (pageNumber-1) *10;
     const limit = 10;
     const data = await JobModel.getJobs(offset, limit);
-    const totalCount = await JobModel.getJobsCount();
+    const totalCount = await JobModel.getJobsCount(offset);
     res.json({ data, totalCount: totalCount.count });
   }
 

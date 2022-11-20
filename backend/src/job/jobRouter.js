@@ -7,24 +7,14 @@ const { idValidation } = require("../employee/employeeValidation");
 
 const router = express.Router();
 
+router.get("/jobs", authenticate, JobController.findJobs);
 router.post(
   "/jobs",
   EmployerController.authenticateEmployer,
   JobController.postJob
 );
-router.get(
-  "/jobs",
-  authenticate,
-  JobController.findJobs
-);
-router.get("/jobs/title",
-  authenticate,
-  JobController.findJobByTitle
-);
-router.get("/jobs/:id",
-  idValidation,
-  JobController.findOneJob
-);
+router.get("/jobs/title", authenticate, JobController.findJobByTitle);
+router.get("/jobs/:id", idValidation, JobController.findOneJob);
 router.post(
   "/jobs/:id/apply",
   EmployeeController.authenticateEmployee,

@@ -15,7 +15,7 @@ class JobModel {
   }
 
   static async getJobs(offset, limit) {
-    const sql = `SELECT * FROM jobs INNER JOIN companies ON companies.id=jobs.id LIMIT ?, ?`;
+    const sql = `SELECT jobs.id AS jobID, title, description, requirements, name FROM jobs INNER JOIN companies ON jobs.company_id=companies.id ORDER BY jobs.id ASC LIMIT ?, ?`;
     return await dbProvider.execute(sql, [offset, limit]);
   }
 
@@ -26,7 +26,7 @@ class JobModel {
   }
 
   static async getOneJob(id) {
-    const sql = `SELECT * FROM jobs INNER JOIN companies ON companies.id=jobs.id AND jobs.id = ?`;
+    const sql = `SELECT jobs.id AS jobID, title, description, requirements, name FROM jobs INNER JOIN companies ON companies.id=jobs.company_id AND jobs.id = ?`;
     const rows = await dbProvider.execute(sql, [id]);
     return rows[0];
   }

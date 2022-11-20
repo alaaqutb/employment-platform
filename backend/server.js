@@ -6,6 +6,7 @@ const cors = require("cors");
 const employeeRouter = require("./src/employee/employeeRouter");
 const employerRouter = require("./src/employer/employerRouter");
 const jobRouter = require("./src/job/jobRouter");
+const companyRouter = require("./src/company/companyRouter");
 const getProfile = require("./src/shared/Profile")
 
 dotenv.config();
@@ -35,6 +36,7 @@ app.use(cors());
 app.use(jobRouter);
 app.use(employerRouter);
 app.use(employeeRouter);
+app.use(companyRouter);
 
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Hello World" });

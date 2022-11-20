@@ -9,6 +9,7 @@ import EmployeeComponent from "../components/employees/Profile.vue";
 import SearchComponent from "../components/SearchComponent.vue";
 import jobEmployeeComponent from "../components/job/jobEmployee.vue";
 import NotFoundComponent from "../components/NotFoundComponent.vue";
+import CreateJobComponent from "../components/job/CreateJob.vue"
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -31,6 +32,11 @@ const router = createRouter({
       path: "/jobs",
       name: "jobs",
       component: JobsComponent,
+    },
+    {
+      path: "/jobs",
+      name: "postJobs",
+      component: CreateJobComponent,
     },
     {
       path: "/jobs/:id",
@@ -62,6 +68,11 @@ const router = createRouter({
       name: "job-employee",
       component:  jobEmployeeComponent,
     },
+    // {
+    //   path: "/companies",
+    //   name: "jobs",
+    //   component: CreateJobComponent,
+    // },
     {
       path: "/:pathMatch(.*)*",
       name: "notfound",

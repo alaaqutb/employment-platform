@@ -17,6 +17,12 @@
           class="text-light nav-link active mx-3"
           >Jobs</RouterLink
         >
+        <!-- <RouterLink
+          to="/jobs/"
+          v-if="isLoggedIn"
+          class="text-light nav-link active mx-3"
+          >Create Job</RouterLink
+        > -->
       </div>
       <!-- <SearchComponent url="/jobs/title?title=" v-if="isLoggedIn" /> -->
 
