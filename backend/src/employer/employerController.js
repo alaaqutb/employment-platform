@@ -36,7 +36,7 @@ class EmployerController {
       res.locals.auth = decoded;
       next();
     } catch (err) {
-      console.log(err.stack);
+      res.json({ message: "Unauthenticated" });
     }
   }
 

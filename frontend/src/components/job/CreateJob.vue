@@ -36,14 +36,18 @@
         ></textarea>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary mb-3" @click="postJob()">
+    <button
+      type="submit"
+      class="btn btn-primary mb-3"
+      @click.prevent="postJob()"
+    >
       Post
     </button>
   </form>
 </template>
 <script>
 import { instance } from "../../axios/axios";
-//import { notify } from "@kyvg/vue3-notification";
+import { notify } from "@kyvg/vue3-notification";
 export default {
   data() {
     return {
@@ -58,16 +62,19 @@ export default {
   },
   methods: {
     async postJob() {
-      //const token = localStorage.getItem("token");
-      const result = await instance.post("/jobs", {body: this.job}, {
-        //headers: { authorization: token },
-      });
-      console.log(result.data.message);
-      // if (result) {
-      //   notify({
-      //     title: result.data.message,
-      //   });
-      // }
+      const token = localStorage.getItem("token");
+      const result = await instance.post(
+        "/jobs",
+        this.job ,
+        {
+          headers: { authorization: token },
+        }
+      );
+      if (result) {
+        notify({
+          title: result.data.message,
+        });
+      }
     },
   },
   created: async function () {

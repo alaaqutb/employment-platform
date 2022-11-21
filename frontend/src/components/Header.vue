@@ -17,12 +17,12 @@
           class="text-light nav-link active mx-3"
           >Jobs</RouterLink
         >
-        <!-- <RouterLink
-          to="/jobs/"
-          v-if="isLoggedIn"
+        <RouterLink
+          to="/createJobs"
+          v-if="isLoggedIn && isAdmin()"
           class="text-light nav-link active mx-3"
           >Create Job</RouterLink
-        > -->
+        >
       </div>
       <!-- <SearchComponent url="/jobs/title?title=" v-if="isLoggedIn" /> -->
 
@@ -66,6 +66,7 @@ export default {
       //url: "",
       email: "",
       isLoggedIn: false,
+      
     };
   },
   methods: {
@@ -88,6 +89,11 @@ export default {
     //   const token = localStorage.getItem("token");
     //   return !!token; // if the token exists, return true, otherwise, return false.
     // },
+     isAdmin() {
+      const isAdmin = localStorage.getItem("isAdmin");
+      console.log(isAdmin);
+      return isAdmin === 'true'; // if the token exists, return true, otherwise, return false.
+    },
   },
   components: {
     SearchComponent,
@@ -97,7 +103,6 @@ export default {
       this.email = e.email;
       this.isLoggedIn = true;
     });
-
     this.email = localStorage.getItem("email");
     const token = localStorage.getItem("token");
     if (token) this.isLoggedIn = true;
